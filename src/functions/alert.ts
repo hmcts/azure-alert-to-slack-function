@@ -85,10 +85,9 @@ function getActions(alert: AzureMonitorRequest) {
                 "type": "button",
                 "text": {
                     "type": "plain_text",
-                    "text": ":Azure: See in Azure",
+                    "text": ":azure: See in Azure",
                     "emoji": true
                 },
-                "style": "danger",
                 "value": "view_in_azure_link",
                 // TODO change interaction url to the function rather than https://httpstat.us/200
                 "url": viewInAzureLink,
@@ -107,7 +106,6 @@ function getActions(alert: AzureMonitorRequest) {
                 "text": "Runbook",
                 "emoji": true
             },
-            "style": "primary",
             "value": "runbook_url",
             "url": runbookUrl,
             "action_id": "runbook_url"
