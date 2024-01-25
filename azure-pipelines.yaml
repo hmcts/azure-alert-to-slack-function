@@ -24,8 +24,8 @@ parameters:
   - name: environment_components
     type: object
     default:
-    - deployment: 'sandbox'
-      environment: 'sandbox'
+    - deployment: 'sbox'
+      environment: 'sbox'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-SBOX'
       dependsOn: 'Precheck'
@@ -33,27 +33,27 @@ parameters:
       environment: 'dev'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-DEV'
-      dependsOn: 'sandbox'
+      dependsOn: 'sbox'
     - deployment: 'demo'
       environment: 'demo'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-DEMO'
-      dependsOn: 'sandbox'
+      dependsOn: 'sbox'
     - deployment: 'ithc'
       environment: 'ithc'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-ITHC'
-      dependsOn: 'sandbox'
+      dependsOn: 'sbox'
     - deployment: 'stg'
       environment: 'stg'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-STG'
-      dependsOn: 'sandbox'
+      dependsOn: 'sbox'
     - deployment: 'test'
       environment: 'test'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-TEST'
-      dependsOn: 'sandbox'
+      dependsOn: 'sbox'
     - deployment: 'prod'
       environment: 'prod'
       component: 'infra'
@@ -85,7 +85,7 @@ stages:
             parameters:
               keyvaultName: 'infra-vault-nonprod'
               keyvaultSecret: 'azure-devops-sp-token'
-              serviceConnection: 'DCD-CFT-Sandbox'
+              serviceConnection: 'DCD-CFT-sbox'
               overrideAction: ${{ parameters.overrideAction }}
 
   - ${{ each deployment in parameters.environment_components }}:
