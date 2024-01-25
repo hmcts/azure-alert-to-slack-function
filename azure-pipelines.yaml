@@ -24,7 +24,7 @@ parameters:
   - name: environment_components
     type: object
     default:
-    - deployment: 'slack-function'
+    - deployment: 'slack_function'
       environment: 'sandbox'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-SBOX'
