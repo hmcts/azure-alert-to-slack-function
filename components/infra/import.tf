@@ -13,7 +13,7 @@ import {
 
 import {
   to = azurerm_storage_account.this
-  id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/alerts-slack-${var.env}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.this.name}"
+  id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/alerts-slack-${var.env}/providers/Microsoft.Storage/storageAccounts/${replace("${var.product}${var.component}${var.env}", "-", "")}"
 }
 
 import {
@@ -23,5 +23,5 @@ import {
 
 import {
   to = module.application_insights.azurerm_application_insights.this
-  id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/alerts-slack-${var.env}/providers/microsoft.insights/components/${module.application_insights.azurerm_application_insights.this.name}"
+  id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/alerts-slack-${var.env}/providers/microsoft.insights/components/alerts-${var.env}"
 }
