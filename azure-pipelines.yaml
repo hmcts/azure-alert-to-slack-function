@@ -44,6 +44,11 @@ parameters:
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-ITHC'
       dependsOn: 'sandbox'
+    - deployment: 'stg'
+      environment: 'stg'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-STG'
+      dependsOn: 'sandbox'
     - deployment: 'test'
       environment: 'test'
       component: 'infra'
@@ -53,7 +58,7 @@ parameters:
       environment: 'prod'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-PROD'
-      dependsOn: 'test'
+      dependsOn: 'stg'
 
 variables:
   - name: timeoutInMinutes
