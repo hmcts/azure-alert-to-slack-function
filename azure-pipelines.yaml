@@ -96,16 +96,13 @@ stages:
             npm run build --if-present
             npm prune --production
           displayName: Install dependencies
-          workingDirectory: $(System.DefaultWorkingDirectory)/src/functions
+          workingDirectory: $(System.DefaultWorkingDirectory)
         - bash: npm prune --production
           displayName: Prune dependencies
-          workingDirectory: $(System.DefaultWorkingDirectory)/src/functions
-        - task: ArchiveFiles@2
+          workingDirectory: $(System.DefaultWorkingDirectory)
+        - bash: |
+            zip -r $(System.ArtifactsDirectory)/build$(Build.BuildId).zip . --exclude @.funcignore --exclude .funcignore
           displayName: Archive files
-          inputs:
-            rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-            includeRootFolder: true
-            archiveFile: "$(System.ArtifactsDirectory)/build$(Build.BuildId).zip"
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(System.ArtifactsDirectory)/build$(Build.BuildId).zip'
