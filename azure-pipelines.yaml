@@ -28,7 +28,7 @@ parameters:
       environment: 'sbox'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-SBOX'
-      dependsOn: 'Precheck'
+      dependsOn: 'Build'
     - deployment: 'demo'
       environment: 'demo'
       component: 'infra'
@@ -83,6 +83,29 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
               overrideAction: ${{ parameters.overrideAction }}
 
+  - stage: Build
+    dependsOn: Precheck
+    jobs:
+      - job: BuildArtifacts
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+        steps:
+        - bash: |
+            npm install 
+            npm run build --if-present
+            npm prune --production
+        - task: ArchiveFiles@2
+          displayName: "Archive files"
+          inputs:
+            rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+            includeRootFolder: false
+            archiveFile: "$(System.ArtifactsDirectory)/build$(Build.BuildId).zip"
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(System.ArtifactsDirectory)/build$(Build.BuildId).zip'
+            artifactName: 'drop'
+
   - ${{ each deployment in parameters.environment_components }}:
     - stage: ${{ deployment.deployment }}
       dependsOn: ${{ deployment.dependsOn }}
@@ -100,3 +123,14 @@ stages:
               serviceConnection: ${{ deployment.service_connection }}
               terraformInitSubscription: ${{ variables.terraformInitSubscription }}
               product: ${{ variables.product }}
+          - task: AzureFunctionApp@2
+            condition: |
+              or(
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply')),
+              )
+            inputs:
+              azureSubscription: ${{ deployment.service_connection }}
+              appType: functionApp
+              appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
+              package: $(System.ArtifactsDirectory)/**/*.zip
+              deploymentMethod: 'auto'
