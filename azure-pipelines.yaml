@@ -125,9 +125,7 @@ stages:
               product: ${{ variables.product }}
           - task: AzureFunctionApp@2
             condition: |
-              or(
-              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply')),
-              )
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
