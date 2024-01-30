@@ -104,7 +104,7 @@ stages:
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(System.ArtifactsDirectory)/build$(Build.BuildId).zip'
-            artifactName: 'drop'
+            artifactName: 'alerts-to-slack'
 
   - ${{ each deployment in parameters.environment_components }}:
     - stage: ${{ deployment.deployment }}
@@ -123,7 +123,11 @@ stages:
               serviceConnection: ${{ deployment.service_connection }}
               terraformInitSubscription: ${{ variables.terraformInitSubscription }}
               product: ${{ variables.product }}
+          - download: current
+            displayName: Download artifact
+            artifact: 'alerts-to-slack'
           - task: AzureFunctionApp@2
+            displayName: Publish to Azure Function
             condition: |
               and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
             inputs:
