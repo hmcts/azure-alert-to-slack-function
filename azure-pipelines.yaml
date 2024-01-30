@@ -104,7 +104,7 @@ stages:
           displayName: Archive files
           inputs:
             rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-            includeRootFolder: false
+            includeRootFolder: true
             archiveFile: "$(System.ArtifactsDirectory)/build$(Build.BuildId).zip"
         - task: PublishBuildArtifacts@1
           inputs:
