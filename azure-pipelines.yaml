@@ -95,8 +95,13 @@ stages:
             npm install 
             npm run build --if-present
             npm prune --production
+          displayName: Install dependencies
+          workingDirectory: $(System.DefaultWorkingDirectory)/src/functions
+        - bash: npm prune --production
+          displayName: Prune dependencies
+          workingDirectory: $(System.DefaultWorkingDirectory)/src/functions
         - task: ArchiveFiles@2
-          displayName: "Archive files"
+          displayName: Archive files
           inputs:
             rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
             includeRootFolder: false
