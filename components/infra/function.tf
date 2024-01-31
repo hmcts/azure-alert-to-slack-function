@@ -28,7 +28,7 @@ resource "azurerm_windows_function_app" "this" {
 
   app_settings = {
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
-    BOT_TOKEN_SECRET_NAME = "${var.product}-${var.component}-bot-token"
+    BOT_TOKEN_SECRET_NAME    = "${var.product}-${var.component}-bot-token"
     SIGNING_SECRET_NAME      = "${var.product}-${var.component}-bot-token"
     WEBSITE_RUN_FROM_PACKAGE = 1
   }
