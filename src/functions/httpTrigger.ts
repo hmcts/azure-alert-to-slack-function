@@ -15,7 +15,7 @@ export async function httpTrigger(request: HttpRequest, context: InvocationConte
 
     const vaultName = process.env.KEY_VAULT_NAME;
     const url = `https://${vaultName}.vault.azure.net`;
-    const credential = new ManagedIdentityCredential();
+    const credential = new ManagedIdentityCredential(process.env.AZURE_CLIENT_ID);
     const client = new SecretClient(url, credential);
     const botTokenSecretName = process.env.BOT_TOKEN_SECRET_NAME
     const botToken = await client.getSecret(botTokenSecretName);
