@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0-alpha.9",
-    "@slack/bolt": "^3.13.2"
+    "@slack/bolt": "^3.13.2",
+    "@azure/identity": "^4.0.1",
+    "@azure/keyvault-secrets": "^4.7.0"
   },
   "devDependencies": {
     "@types/node": "18.x",
