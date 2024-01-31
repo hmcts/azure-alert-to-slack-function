@@ -110,6 +110,7 @@ stages:
 
   - ${{ each deployment in parameters.environment_components }}:
     - stage: ${{ deployment.deployment }}
+      displayName: "Infra - ${{ deployment.deployment }}"
       dependsOn: ${{ deployment.dependsOn }}
       jobs:
         - job: TerraformPlanApply
