@@ -32,10 +32,5 @@ resource "azurerm_windows_function_app" "this" {
     SLACK_SIGNING_SECRET     = data.azurerm_key_vault_secret.signing_secret.value
   }
 
-  identity {
-    type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.this.id]
-  }
-
   tags = module.tags.common_tags
 }
