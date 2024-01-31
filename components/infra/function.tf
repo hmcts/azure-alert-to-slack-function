@@ -30,6 +30,7 @@ resource "azurerm_windows_function_app" "this" {
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
     SLACK_BOT_TOKEN          = data.azurerm_key_vault_secret.bot_token.value
     SLACK_SIGNING_SECRET     = data.azurerm_key_vault_secret.signing_secret.value
+    WEBSITE_RUN_FROM_PACKAGE = 1
   }
 
   tags = module.tags.common_tags
