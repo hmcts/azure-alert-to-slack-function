@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {
 }
 
-data "azurerm_key_vault" "cftptl" {
+data "azurerm_key_vault" "this" {
   name                = "dcdcftapps${var.env}kv"
   resource_group_name = "genesis-rg"
 }

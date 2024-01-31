@@ -2,6 +2,9 @@ import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/fu
 import { App } from '@slack/bolt';
 import { retrieveBlocks, retrieveText } from "./alert";
 import { AzureMonitorRequest } from "./types";
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import { ManagedIdentityCredential } from "@azure/identity";
+import { SecretClient } from "@azure/keyvault-secrets";
 
 export async function httpTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
@@ -10,9 +13,18 @@ export async function httpTrigger(request: HttpRequest, context: InvocationConte
 
     context.log(JSON.stringify(azureMonitorRequest))
 
+    const vaultName = process.env.KEY_VAULT_NAME;
+    const url = `https://${vaultName}.vault.azure.net`;
+    const credential = new ManagedIdentityCredential();
+    const client = new SecretClient(url, credential);
+    const botTokenSecretName = process.env.BOT_TOKEN_SECRET_NAME
+    const botToken = await client.getSecret(botTokenSecretName);
+    const signingSecretName = process.env.SIGNING_SECRET_NAME
+    const signingSecret = await client.getSecret(signingSecretName);
+
     const app = new App({
-        signingSecret: process.env.SLACK_SIGNING_SECRET,
-        token: process.env.SLACK_BOT_TOKEN,
+        signingSecret: signingSecret.value,
+        token: botToken.value,
     });
 
     const text = retrieveText(azureMonitorRequest)
