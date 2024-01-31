@@ -26,7 +26,7 @@ resource "azurerm_key_vault_access_policy" "function" {
   provider     = azurerm.cftptl
   key_vault_id = data.azurerm_key_vault.cftptl.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_windows_function_app.this.identity.principal_id
+  object_id    = azurerm_windows_function_app.this.identity[0].principal_id
 
   secret_permissions = [
     "Get",
