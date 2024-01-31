@@ -11,3 +11,5 @@ node_modules/typescript/
 terraform/*
 azure-pipelines.yaml
 *.md
+components/*
+environments/*
