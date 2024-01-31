@@ -32,5 +32,5 @@ resource "azurerm_key_vault_access_policy" "function" {
     "Get",
   ]
 
-  depends_on = [ azurerm_windows_function_app.this ]
+  depends_on = [azurerm_windows_function_app.this]
 }
