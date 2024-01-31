@@ -12,3 +12,4 @@ azure-pipelines.yaml
 *.md
 components/*
 environments/*
+.DS_Store
