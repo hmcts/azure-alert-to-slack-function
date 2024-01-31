@@ -128,6 +128,8 @@ stages:
               product: ${{ variables.product }}
           - task: DownloadPipelineArtifact@2
             displayName: Download artifact
+            condition: |
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
             inputs:
               buildType: 'current'
               artifactName: 'alerts-to-slack'
