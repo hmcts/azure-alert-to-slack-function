@@ -34,7 +34,8 @@ resource "azurerm_windows_function_app" "this" {
   }
 
   identity {
-    type = "SystemAssigned"
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.this.id]
   }
 
   tags = module.tags.common_tags
