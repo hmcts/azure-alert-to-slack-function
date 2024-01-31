@@ -8,10 +8,10 @@ data "azurerm_key_vault" "this" {
 
 data "azurerm_key_vault_secret" "bot_token" {
   name         = "${var.product}-${var.component}-bot-token"
-  key_vault_id = data.azurerm_key_vault.cftptl.id
+  key_vault_id = data.azurerm_key_vault.this.id
 }
 
 data "azurerm_key_vault_secret" "signing_secret" {
   name         = "${var.product}-${var.component}-signing-secret"
-  key_vault_id = data.azurerm_key_vault.cftptl.id
+  key_vault_id = data.azurerm_key_vault.this.id
 }
