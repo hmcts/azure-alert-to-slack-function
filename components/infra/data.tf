@@ -2,6 +2,7 @@ data "azurerm_client_config" "current" {
 }
 
 data "azurerm_key_vault" "cftptl" {
+  provider            = azurerm.cftptl
   name                = "cftptl-intsvc"
   resource_group_name = "core-infra-intsvc-rg"
 }
