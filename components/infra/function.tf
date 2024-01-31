@@ -34,7 +34,7 @@ resource "azurerm_windows_function_app" "this" {
   }
 
   identity {
-    type         = "SystemAssigned"
+    type = "SystemAssigned"
   }
 
   tags = module.tags.common_tags
