@@ -13,16 +13,18 @@ export async function httpTrigger(request: HttpRequest, context: InvocationConte
 
     context.log(JSON.stringify(azureMonitorRequest))
 
-    const vaultName = process.env.KeyVaultName;
+    const vaultName = process.env.KEY_VAULT_NAME;
     const url = `https://${vaultName}.vault.azure.net`;
     const credential = new ManagedIdentityCredential();
     const client = new SecretClient(url, credential);
-    const secretName = process.env.SecretName
-    const secret = await client.getSecret(secretName);
+    const botTokenSecretName = process.env.BOT_TOKEN_SECRET_NAME
+    const botToken = await client.getSecret(botTokenSecretName);
+    const signingSecretName = process.env.SIGNING_SECRET_NAME
+    const signingSecret = await client.getSecret(signingSecretName);
 
     const app = new App({
-        signingSecret: process.env.SLACK_SIGNING_SECRET,
-        token: secret.value,
+        signingSecret: signingSecret.value,
+        token: botToken.value,
     });
 
     const text = retrieveText(azureMonitorRequest)

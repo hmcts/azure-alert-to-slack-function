@@ -21,3 +21,13 @@ module "tags" {
   product     = "cft-platform"
   builtFrom   = var.builtFrom
 }
+
+resource "azurerm_key_vault_access_policy" "function" {
+  key_vault_id = data.azurerm_key_vault.cftptl.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azurerm_windows_function_app.this.identity
+
+  secret_permissions = [
+    "Get",
+  ]
+}

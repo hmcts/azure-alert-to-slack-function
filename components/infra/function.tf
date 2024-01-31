@@ -28,8 +28,13 @@ resource "azurerm_windows_function_app" "this" {
 
   app_settings = {
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
-    SecretName               = "${var.product}-${var.component}-bot-token"
-    KeyVaultName             = "cftptl-intsvc"
+    BOT_TOKEN_SECRET_NAME    = "${var.product}-${var.component}-bot-token"
+    SIGNING_SECRET_NAME      = "${var.product}-${var.component}-bot-token"
+    KEY_VAULT_NAME           = "cftptl-intsvc"
+  }
+
+  identity {
+    type = "SystemAssigned"
   }
 
   tags = module.tags.common_tags
