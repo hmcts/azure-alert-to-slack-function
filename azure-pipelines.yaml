@@ -146,7 +146,7 @@ stages:
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
-              ${{ if eq( parameters['deployment.environment'], 'stg') }}:
+              ${{ if eq( deployment['environment'], 'stg') }}:
                 appName: "${{ variables.product }}-slack-aat"
               ${{ else }}:
                 appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
