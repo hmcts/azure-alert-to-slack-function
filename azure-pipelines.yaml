@@ -151,4 +151,4 @@ stages:
               ${{ else }}:
                 appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
-              deploymentMethod: 'auto'
+              deploymentMethod: 'zipDeploy'
