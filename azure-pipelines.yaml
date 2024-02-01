@@ -129,14 +129,20 @@ stages:
           - task: DownloadPipelineArtifact@2
             displayName: Download artifact
             condition: |
-              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
+              or(
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply')),
+              and(succeeded(), eq(variables['isMain'], true), eq(variables['isAutoTriggered'], true))
+              )
             inputs:
               buildType: 'current'
               artifactName: 'alerts-to-slack'
           - task: AzureFunctionApp@2
             displayName: Publish to Azure Function
             condition: |
-              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
+              or(
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply')),
+              and(succeeded(), eq(variables['isMain'], true), eq(variables['isAutoTriggered'], true))
+              )
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
