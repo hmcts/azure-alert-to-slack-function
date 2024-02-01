@@ -28,7 +28,7 @@ parameters:
       environment: 'sbox'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-SBOX'
-      dependsOn: 'Precheck'
+      dependsOn: 'Build'
     - deployment: 'demo'
       environment: 'demo'
       component: 'infra'
@@ -83,8 +83,34 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
               overrideAction: ${{ parameters.overrideAction }}
 
+  - stage: Build
+    dependsOn: Precheck
+    jobs:
+      - job: BuildArtifacts
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+        steps:
+        - bash: |
+            npm install 
+            npm run build --if-present
+            npm prune --production
+          displayName: Install dependencies
+          workingDirectory: $(System.DefaultWorkingDirectory)
+        - bash: npm prune --production
+          displayName: Prune dependencies
+          workingDirectory: $(System.DefaultWorkingDirectory)
+        - bash: |
+            zip -r $(System.ArtifactsDirectory)/build$(Build.BuildId).zip . --exclude @.funcignore --exclude .funcignore
+          displayName: Archive files
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(System.ArtifactsDirectory)/build$(Build.BuildId).zip'
+            artifactName: 'alerts-to-slack'
+
   - ${{ each deployment in parameters.environment_components }}:
     - stage: ${{ deployment.deployment }}
+      displayName: "Infra - ${{ deployment.deployment }}"
       dependsOn: ${{ deployment.dependsOn }}
       jobs:
         - job: TerraformPlanApply
@@ -100,3 +126,20 @@ stages:
               serviceConnection: ${{ deployment.service_connection }}
               terraformInitSubscription: ${{ variables.terraformInitSubscription }}
               product: ${{ variables.product }}
+          - task: DownloadPipelineArtifact@2
+            displayName: Download artifact
+            condition: |
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
+            inputs:
+              buildType: 'current'
+              artifactName: 'alerts-to-slack'
+          - task: AzureFunctionApp@2
+            displayName: Publish to Azure Function
+            condition: |
+              and(succeeded(), eq('${{ parameters.overrideAction }}', 'apply'))
+            inputs:
+              azureSubscription: ${{ deployment.service_connection }}
+              appType: functionApp
+              appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
+              package: $(Pipeline.Workspace)/**/*.zip
+              deploymentMethod: 'auto'

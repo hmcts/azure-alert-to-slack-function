@@ -28,6 +28,16 @@ resource "azurerm_windows_function_app" "this" {
 
   app_settings = {
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
+    BOT_TOKEN_SECRET_NAME    = "${var.product}-${var.component}-bot-token"
+    SIGNING_SECRET_NAME      = "${var.product}-${var.component}-signing-secret"
+    KEY_VAULT_NAME           = "dcdcftapps${var.env}kv"
+    AZURE_CLIENT_ID          = azurerm_user_assigned_identity.this.client_id
+    WEBSITE_RUN_FROM_PACKAGE = 1
+  }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.this.id]
   }
 
   tags = module.tags.common_tags

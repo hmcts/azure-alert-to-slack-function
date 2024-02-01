@@ -1,5 +1,4 @@
 *.js.map
-*.ts
 .git*
 .vscode
 local.settings.json
@@ -8,3 +7,9 @@ getting_started.md
 node_modules/@types/
 node_modules/azure-functions-core-tools/
 node_modules/typescript/
+terraform/*
+azure-pipelines.yaml
+*.md
+components/*
+environments/*
+.DS_Store
