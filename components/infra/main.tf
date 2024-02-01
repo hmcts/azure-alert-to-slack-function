@@ -36,4 +36,6 @@ resource "azurerm_key_vault_access_policy" "this" {
   secret_permissions = [
     "Get",
   ]
+
+  depends_on = [azurerm_user_assigned_identity.this]
 }
