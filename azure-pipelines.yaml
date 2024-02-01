@@ -146,6 +146,9 @@ stages:
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
-              appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
+              ${{ if eq( parameters['deployment.environment'], 'stg') }}:
+                appName: "${{ variables.product }}-slack-aat"
+              ${{ else }}:
+                appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
               deploymentMethod: 'auto'
