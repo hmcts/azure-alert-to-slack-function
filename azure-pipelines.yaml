@@ -95,6 +95,7 @@ stages:
             npm install 
             npm run build --if-present
             npm prune --production
+            npm install --save @types/js-yaml
           displayName: Install dependencies
           workingDirectory: $(System.DefaultWorkingDirectory)
         - bash: npm prune --production
