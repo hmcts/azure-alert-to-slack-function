@@ -2,7 +2,6 @@ import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/fu
 import { App } from '@slack/bolt';
 import { retrieveBlocks, retrieveText } from "./alert";
 import { AzureMonitorRequest } from "./types";
-import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { ManagedIdentityCredential } from "@azure/identity";
 import { SecretClient } from "@azure/keyvault-secrets";
 
