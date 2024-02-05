@@ -183,7 +183,7 @@ stages:
                 appName: "sds-${{ variables.product }}-slack-perftest"
               ${{ elseif and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft')) }}:
                 appName: "cft-${{ variables.product }}-slack-${{ deployment.environment }}"
-              ${{ elseif and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'sds')) }}:
+              ${{ elseif contains( deployment['deployment'], 'sds')) }}:
                 appName: "sds-${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
               deploymentMethod: 'auto'
