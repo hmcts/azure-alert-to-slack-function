@@ -17,8 +17,8 @@ resource "azurerm_storage_account" "this" {
 
 module "tags" {
   source      = "git::https://github.com/hmcts/terraform-module-common-tags.git?ref=master"
-  environment = local.env
-  product     = "cft-platform"
+  environment = var.env
+  product     = local.business_area
   builtFrom   = var.builtFrom
 }
 

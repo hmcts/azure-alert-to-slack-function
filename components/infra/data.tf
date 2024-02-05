@@ -1,8 +1,12 @@
 data "azurerm_client_config" "current" {
 }
 
+data "azurerm_subscription" "current" {
+  subscription_id = data.azurerm_client_config.current.subscription_id
+}
+
 data "azurerm_key_vault" "this" {
-  name                = "dcdcftapps${var.env}kv"
+  name                = "${lower(replace(data.azurerm_subscription.current.display_name, "-", ""))}kv"
   resource_group_name = "genesis-rg"
 }
 
