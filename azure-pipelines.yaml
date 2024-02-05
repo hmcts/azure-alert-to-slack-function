@@ -24,32 +24,63 @@ parameters:
   - name: environment_components
     type: object
     default:
-    - deployment: 'sbox'
+    - deployment: 'cft_sbox'
+      environment: 'sbox'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-SBOX'
+      dependsOn: 'Build'
+    - deployment: 'cft_demo'
+      environment: 'demo'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-DEMO'
+      dependsOn: 'sbox'
+    - deployment: 'cft_ithc'
+      environment: 'ithc'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-ITHC'
+      dependsOn: 'sbox'
+    - deployment: 'cft_stg'
+      environment: 'stg'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-STG'
+      dependsOn: 'sbox'
+    - deployment: 'cft_test'
+      environment: 'test'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-TEST'
+      dependsOn: 'sbox'
+    - deployment: 'cft_prod'
+      environment: 'prod'
+      component: 'infra'
+      service_connection: 'DCD-CFTAPPS-PROD'
+      dependsOn: 'stg'
+
+    - deployment: 'sds_sbox'
       environment: 'sbox'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-SBOX'
       dependsOn: 'Build'
-    - deployment: 'demo'
+    - deployment: 'sds_demo'
       environment: 'demo'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-DEMO'
       dependsOn: 'sbox'
-    - deployment: 'ithc'
+    - deployment: 'sds_ithc'
       environment: 'ithc'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-ITHC'
       dependsOn: 'sbox'
-    - deployment: 'stg'
+    - deployment: 'sds_stg'
       environment: 'stg'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-STG'
       dependsOn: 'sbox'
-    - deployment: 'test'
+    - deployment: 'sds_test'
       environment: 'test'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-TEST'
       dependsOn: 'sbox'
-    - deployment: 'prod'
+    - deployment: 'sds_prod'
       environment: 'prod'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-PROD'
@@ -67,6 +98,7 @@ variables:
   - name: terraformInitSubscription
     value: 04d27a32-7a07-48b3-95b8-3c8691e1a263
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
+
 stages:
   - stage: Precheck
     jobs:
@@ -145,6 +177,9 @@ stages:
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
-              appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
+              ${{ if eq( deployment['environment'], 'stg') }}:
+                appName: "${{ variables.product }}-slack-aat"
+              ${{ else }}:
+                appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
               deploymentMethod: 'auto'
