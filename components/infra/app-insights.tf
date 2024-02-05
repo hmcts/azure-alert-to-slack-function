@@ -1,7 +1,7 @@
 module "application_insights" {
   source = "git::https://github.com/hmcts/terraform-module-application-insights?ref=main"
 
-  product = var.product
+  product = "${local.business_area}-${var.product}"
   env     = local.env
 
   resource_group_name = azurerm_resource_group.this.name
