@@ -44,8 +44,8 @@ parameters:
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-STG'
       dependsOn: 'sbox'
-    - deployment: 'perftest'
-      environment: 'perftest'
+    - deployment: 'test'
+      environment: 'test'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-TEST'
       dependsOn: 'sbox'
@@ -146,6 +146,9 @@ stages:
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
-              appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
+              ${{ if eq( deployment['environment'], 'stg') }}:
+                appName: "${{ variables.product }}-slack-aat"
+              ${{ else }}:
+                appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
               deploymentMethod: 'auto'

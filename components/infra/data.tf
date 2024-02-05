@@ -7,11 +7,11 @@ data "azurerm_key_vault" "this" {
 }
 
 data "azurerm_key_vault_secret" "bot_token" {
-  name         = "alerts-${var.component}-bot-token"
+  name         = "${var.product}-${var.component}-bot-token"
   key_vault_id = data.azurerm_key_vault.this.id
 }
 
 data "azurerm_key_vault_secret" "signing_secret" {
-  name         = "alerts-${var.component}-signing-secret"
+  name         = "${var.product}-${var.component}-signing-secret"
   key_vault_id = data.azurerm_key_vault.this.id
 }
