@@ -1,3 +1,3 @@
 locals {
-  env = var.env == "stg" ? "aat" && contains(lower(data.azurerm_subscription.current.display_name), "cftapps") : var.env || var.env == "test" ? "perftest" && contains(lower(data.azurerm_subscription.current.display_name), "cftapps") : var.env
+  env = var.env == "stg" && contains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "aat" : var.env || var.env == "test" && contains(lower(data.azurerm_subscription.current.display_name), "cftapps") ? "perftest" : var.env
 }
