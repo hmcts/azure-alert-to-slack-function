@@ -24,79 +24,36 @@ parameters:
   - name: environment_components
     type: object
     default:
-    - deployment: 'CFT_Sbox'
-      business_area: 'cft'
+    - deployment: 'sbox'
       environment: 'sbox'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-SBOX'
       dependsOn: 'Build'
-    - deployment: 'CFT_Demo'
-      business_area: 'cft'
+    - deployment: 'demo'
       environment: 'demo'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-DEMO'
-      dependsOn: 'CFT_Sbox'
-    - deployment: 'CFT_ITHC'
-      business_area: 'cft'
+      dependsOn: 'sbox'
+    - deployment: 'ithc'
       environment: 'ithc'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-ITHC'
-      dependsOn: 'CFT_Sbox'
-    - deployment: 'CFT_Stg'
-      business_area: 'cft'
+      dependsOn: 'sbox'
+    - deployment: 'stg'
       environment: 'stg'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-STG'
-      dependsOn: 'CFT_Sbox'
-    - deployment: 'CFT_Test'
-      business_area: 'cft'
-      environment: 'test'
+      dependsOn: 'sbox'
+    - deployment: 'perftest'
+      environment: 'perftest'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-TEST'
-      dependsOn: 'CFT_Sbox'
-    - deployment: 'CFT_Prod'
-      business_area: 'cft'
+      dependsOn: 'sbox'
+    - deployment: 'prod'
       environment: 'prod'
       component: 'infra'
       service_connection: 'DCD-CFTAPPS-PROD'
-      dependsOn: 'CFT_Stg'
-
-    - deployment: 'SDS_Sbox'
-      business_area: 'sds'
-      environment: 'sbox'
-      component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICES-SBOX'
-      dependsOn: 'Build'
-    - deployment: 'SDS_Demo'
-      business_area: 'sds'
-      environment: 'demo'
-      component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICES-DEMO'
-      dependsOn: 'SDS_Sbox'
-    - deployment: 'SDS_ITHC'
-      business_area: 'sds'
-      environment: 'ithc'
-      component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICES-ITHC'
-      dependsOn: 'SDS_Sbox'
-    - deployment: 'SDS_Stg'
-      business_area: 'sds'
-      environment: 'stg'
-      component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICES-STG'
-      dependsOn: 'SDS_Sbox'
-    - deployment: 'SDS_Test'
-      business_area: 'sds'
-      environment: 'test'
-      component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICES-TEST'
-      dependsOn: 'SDS_Sbox'
-    - deployment: 'SDS_Prod'
-      business_area: 'sds'
-      environment: 'prod'
-      component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICES-PROD'
-      dependsOn: 'SDS_Stg'
+      dependsOn: 'stg'
 
 variables:
   - name: timeoutInMinutes
@@ -168,7 +125,7 @@ stages:
               component: ${{ deployment.component }}
               serviceConnection: ${{ deployment.service_connection }}
               terraformInitSubscription: ${{ variables.terraformInitSubscription }}
-              product: ${{ deployment.business_area }}-${{ variables.product }}
+              product: ${{ variables.product }}
           - task: DownloadPipelineArtifact@2
             displayName: Download artifact
             condition: |
@@ -189,9 +146,6 @@ stages:
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
-              ${{ if eq( deployment['environment'], 'stg') }}:
-                appName: "${{ variables.product }}-slack-aat"
-              ${{ else }}:
-                appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
+              appName: "${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
               deploymentMethod: 'auto'
