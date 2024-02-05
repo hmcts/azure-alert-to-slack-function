@@ -30,7 +30,7 @@ resource "azurerm_windows_function_app" "this" {
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
     BOT_TOKEN_SECRET_NAME    = "${var.product}-${var.component}-bot-token"
     SIGNING_SECRET_NAME      = "${var.product}-${var.component}-signing-secret"
-    KEY_VAULT_NAME           = "dcdcftapps${var.env}kv"
+    KEY_VAULT_NAME           = data.azurerm_key_vault.this.name
     AZURE_CLIENT_ID          = azurerm_user_assigned_identity.this.client_id
     WEBSITE_RUN_FROM_PACKAGE = 1
   }
