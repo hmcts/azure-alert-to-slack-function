@@ -177,13 +177,13 @@ stages:
             inputs:
               azureSubscription: ${{ deployment.service_connection }}
               appType: functionApp
-              ${{ if and(eq( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft') }}:
+              ${{ if and(eq( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft')) }}:
                 appName: "cft-${{ variables.product }}-slack-aat"
-              ${{ else if and(eq( deployment['environment'], 'stg'), contains( deployment['deployment'], 'sds') }}:
+              ${{ else if and(eq( deployment['environment'], 'stg'), contains( deployment['deployment'], 'sds')) }}:
                 appName: "sds-${{ variables.product }}-slack-aat"
-              ${{ else if and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft')}}:
+              ${{ else if and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft')) }}:
                 appName: "cft-${{ variables.product }}-slack-${{ deployment.environment }}"
-              ${{ else if and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'sds')}}:
+              ${{ else if and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'sds')) }}:
                 appName: "sds-${{ variables.product }}-slack-${{ deployment.environment }}"
               package: $(Pipeline.Workspace)/**/*.zip
               deploymentMethod: 'auto'
