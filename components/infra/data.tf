@@ -6,7 +6,7 @@ data "azurerm_subscription" "current" {
 }
 
 data "azurerm_key_vault" "this" {
-  name                = "dcdcftapps${var.env}kv"
+  name                = "${lower(replace(data.azurerm_subscription.current.display_name, "-", ""))}kv"
   resource_group_name = "genesis-rg"
 }
 
