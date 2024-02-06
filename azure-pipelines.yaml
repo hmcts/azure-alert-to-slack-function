@@ -180,7 +180,7 @@ stages:
               ${{ if and(eq( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft')) }}:
                 appName: "cft-${{ variables.product }}-slack-aat"
               ${{ elseif and(eq( deployment['environment'], 'test'), contains( deployment['deployment'], 'cft')) }}:
-                appName: "sds-${{ variables.product }}-slack-perftest"
+                appName: "cft-${{ variables.product }}-slack-perftest"
               ${{ elseif and(ne( deployment['environment'], 'stg'), contains( deployment['deployment'], 'cft')) }}:
                 appName: "cft-${{ variables.product }}-slack-${{ deployment.environment }}"
               ${{ elseif contains( deployment['deployment'], 'sds') }}:
