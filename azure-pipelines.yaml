@@ -84,7 +84,7 @@ parameters:
       environment: 'dev'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICES-DEV'
-      dependsOn: 'Build'
+      dependsOn: 'sds_sbox'
     - deployment: 'sds_prod'
       environment: 'prod'
       component: 'infra'
