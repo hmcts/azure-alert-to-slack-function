@@ -1,5 +1,5 @@
 module "application_insights" {
-  source = "git::https://github.com/hmcts/terraform-module-application-insights?ref=chirag-patch-1"
+  source = "git::https://github.com/hmcts/terraform-module-application-insights?ref=main"
 
   product = "${local.business_area}-${var.product}"
   env     = local.env
