@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "this" {
-  name                = "${local.business_area}-${var.product}-${var.component}-${local.env}"
+  name                = "${local.business_area}-${var.product}-${var.component}-${local.env}-2"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   os_type             = "Windows"
@@ -9,7 +9,7 @@ resource "azurerm_service_plan" "this" {
 }
 
 resource "azurerm_windows_function_app" "this" {
-  name                = "${local.business_area}-${var.product}-${var.component}-${local.env}"
+  name                = "${local.business_area}-${var.product}-${var.component}-${local.env}-2"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
 
