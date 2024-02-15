@@ -91,7 +91,7 @@ parameters:
     #   service_connection: 'DTS-SHAREDSERVICES-PROD'
     #   dependsOn: 'sds_stg'
 
-    - deployment: 'sds_prod'
+    - deployment: 'sds_ptl'
       environment: 'ptl'
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICESPTL'
