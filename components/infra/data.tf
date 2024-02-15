@@ -6,7 +6,7 @@ data "azurerm_subscription" "current" {
 }
 
 data "azurerm_key_vault" "this" {
-  name                = local.business_area == "cft" ? "${lower(replace(data.azurerm_subscription.current.display_name, "-", ""))}kv" : local.env
+  name                = local.business_area == "cft" ? "dtscftptl" : "dtssdsptl"
   resource_group_name = "genesis-rg"
 }
 
