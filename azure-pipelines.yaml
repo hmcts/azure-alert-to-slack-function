@@ -96,6 +96,11 @@ parameters:
       component: 'infra'
       service_connection: 'DTS-SHAREDSERVICESPTL'
       dependsOn: 'Build'
+    - deployment: 'cft_ptl'
+      environment: 'ptl'
+      component: 'infra'
+      service_connection: 'DTS-CFTPTL-INTSVC'
+      dependsOn: 'Build'
 
 variables:
   - name: timeoutInMinutes
