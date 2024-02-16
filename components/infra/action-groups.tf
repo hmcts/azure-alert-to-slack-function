@@ -18,13 +18,6 @@ resource "azurerm_monitor_action_group" "action_group" {
     name                     = "slack-alerts"
     use_common_alert_schema  = true
   }
-  dynamic "email_receiver" {
-    for_each = var.email_receiver_config != null ? [var.email_receiver_config] : []
-    content {
-      name          = email_receiver.value["name"]
-      email_address = email_receiver.value["email_address"]
-    }
-  }
 
   tags = module.tags.common_tags
 }
