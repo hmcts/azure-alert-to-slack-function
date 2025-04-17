@@ -1,7 +1,7 @@
 locals {
   env           = (var.env == "stg" && strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps")) ? "aat" : (var.env == "test" && strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps")) ? "perftest" : var.env
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cft") ? "cft" : "sds"
-  subscriptions = [
+  cft_subscriptions = [
     "DCD-ROBOTICS-DEV",
     "DCD-CFTAPPS-TEST",
     "DCD-CFTAPPS-ITHC",
@@ -44,21 +44,23 @@ locals {
     "DTS-DACS-SBOX",
     "DTS-MANAGEMENT-SBOX-INTSVC",
     "HMCTS-HUB-SBOX-INTSVC",
+    "DTS-ARCHIVING-TEST",
+    "Reform-CFT-VH-Dev",
+    "DCD-CFT-VH-Pilot",
+    "DTS-ARCHIVING-PROD",
+    "DCD-AWS-Migration",
+    "HMCTS-SOC-SBOX",
+    "HMCTS-SOC-PROD"
+  ]
+  sds_subscriptions = [
     "DTS-SHAREDSERVICES-ITHC",
     "DTS-SHAREDSERVICES-DEMO",
     "DTS-SHAREDSERVICES-TEST",
     "DTS-SHAREDSERVICES-DEV",
-    "DTS-ARCHIVING-TEST",
-    "Reform-CFT-VH-Dev",
-    "DTS-SHAREDSERVICESPTL",
-    "DCD-CFT-VH-Pilot",
-    "DTS-ARCHIVING-PROD",
-    "DTS-SHAREDSERVICES-STG",
-    "DCD-AWS-Migration",
     "DTS-SHAREDSERVICES-PROD",
     "DTS-SHAREDSERVICESPTL-SBOX",
     "DTS-SHAREDSERVICES-SBOX",
-    "HMCTS-SOC-SBOX",
-    "HMCTS-SOC-PROD"
+    "DTS-SHAREDSERVICESPTL",
+    "DTS-SHAREDSERVICES-STG"
   ]
 }
