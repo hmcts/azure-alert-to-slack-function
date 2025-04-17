@@ -21,6 +21,6 @@ data "azurerm_key_vault_secret" "signing_secret" {
 }
 
 data "azuread_application" "bootstrap" {
-  for_each             = local.business_area == "cft" ? toset(local.cft_subscriptions) : toset(local.sds_subscriptions)
+  for_each     = local.business_area == "cft" ? toset(local.cft_subscriptions) : toset(local.sds_subscriptions)
   display_name = "DTS Bootstrap (sub:${each.value})"
 }
