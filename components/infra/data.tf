@@ -19,3 +19,8 @@ data "azurerm_key_vault_secret" "signing_secret" {
   name         = "${var.product}-${var.component}-signing-secret"
   key_vault_id = data.azurerm_key_vault.this.id
 }
+
+data "azuread_application" "bootstrap" {
+  for_each     = local.subscriptions
+  display_name = "DTS Bootstrap (sub: ${each.value})"
+}
