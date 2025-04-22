@@ -2,7 +2,6 @@ locals {
   env           = (var.env == "stg" && strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps")) ? "aat" : (var.env == "test" && strcontains(lower(data.azurerm_subscription.current.display_name), "cftapps")) ? "perftest" : var.env
   business_area = strcontains(lower(data.azurerm_subscription.current.display_name), "cft") ? "cft" : "sds"
   cft_subscriptions = [
-    "DCD-ROBOTICS-DEV",
     "DCD-CFTAPPS-TEST",
     "DCD-CFTAPPS-ITHC",
     "DCD-CNP-QA",
@@ -10,47 +9,15 @@ locals {
     "DCD-CFTAPPS-DEV",
     "DCD-CFTAPPS-DEMO",
     "DCD-CNP-DEV",
-    "DTS-CFTPTL-INTSVC",
     "DCD-CNP-Prod",
     "DCD-CFTAPPS-PROD",
-    "DTS-CFTSBOX-INTSVC",
     "DCD-CFTAPPS-STG",
-    "DCD-ROBOTICS-SBOX",
     "DCD-CFT-Sandbox",
     "DCD-CFTAPPS-SBOX",
-    "MOJ DCD Atlassian LVE",
-    "MoJ Common Platform Operational Services",
-    "MoJ Common Platform Production",
-    "CRIME-ADO-POC",
-    "MoJ Common Platform Non-Live Management",
-    "MOJ DCD Atlassian NLE",
-    "DTS-HERITAGE-INTSVC-STG",
-    "DTS-DATAINGEST-STG",
-    "DTS-HERITAGE-EXTSVC-STG",
-    "DTS-HERITAGE-INTSVC-DEV",
-    "DTS-HERITAGE-INTSVC-PROD",
-    "DTS-HERITAGE-EXTSVC-PROD",
-    "DTS-DATAINGEST-PROD",
-    "DTS-DATAINGEST-SBOX",
-    "HMCTS-HUB-NONPROD-INTSVC",
-    "DCD-RDO-Development",
-    "DTS-MANAGEMENT-NONPROD-INTSVC",
-    "DCD-RDO-Production",
-    "DTS-MANAGEMENT-PROD-INTSVC",
-    "HMCTS-HUB-PROD-INTSVC",
-    "HMCTS-CONTROL",
-    "Reform-CFT-Mgmt",
-    "CP-COPILOT-BETA",
-    "DTS-DACS-SBOX",
-    "DTS-MANAGEMENT-SBOX-INTSVC",
-    "HMCTS-HUB-SBOX-INTSVC",
-    "DTS-ARCHIVING-TEST",
-    "Reform-CFT-VH-Dev",
     "DCD-CFT-VH-Pilot",
-    "DTS-ARCHIVING-PROD",
-    "DCD-AWS-Migration",
-    "HMCTS-SOC-SBOX",
-    "HMCTS-SOC-PROD"
+    "DTS-CFTPTL-INTSVC",
+    "DTS-CFTSBOX-INTSVC"
+
   ]
   sds_subscriptions = [
     "DTS-SHAREDSERVICES-ITHC",
@@ -61,6 +28,13 @@ locals {
     "DTS-SHAREDSERVICESPTL-SBOX",
     "DTS-SHAREDSERVICES-SBOX",
     "DTS-SHAREDSERVICESPTL",
-    "DTS-SHAREDSERVICES-STG"
+    "DTS-SHAREDSERVICES-STG",
+    "DTS-ARCHIVING-TEST",
+    "DTS-ARCHIVING-PROD",
+    "HMCTS-HUB-PROD-INTSVC",
+    "HMCTS-HUB-SBOX-INTSVC",
+    "HMCTS-SOC-SBOX",
+    "HMCTS-SOC-PROD",
+    "Reform-CFT-VH-Dev"
   ]
 }
