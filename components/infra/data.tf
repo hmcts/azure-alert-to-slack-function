@@ -20,7 +20,7 @@ data "azurerm_key_vault_secret" "signing_secret" {
   key_vault_id = data.azurerm_key_vault.this.id
 }
 
-data "azuread_application" "bootstrap" {
+data "azuread_service_principal" "bootstrap" {
   for_each     = local.business_area == "cft" ? toset(local.cft_subscriptions) : toset(local.sds_subscriptions)
   display_name = "DTS Bootstrap (sub:${each.value})"
 }
