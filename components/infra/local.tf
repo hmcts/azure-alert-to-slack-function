@@ -37,3 +37,4 @@ locals {
     "HMCTS-SOC-PROD",
     "Reform-CFT-VH-Dev"
   ]
+}
