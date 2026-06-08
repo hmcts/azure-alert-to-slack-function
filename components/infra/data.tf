@@ -24,9 +24,3 @@ data "azuread_service_principal" "bootstrap" {
   for_each     = local.business_area == "cft" ? toset(local.cft_subscriptions) : toset(local.sds_subscriptions)
   display_name = "DTS Bootstrap (sub:${each.value})"
 }
-
-data "azurerm_user_assigned_identity" "jenkins" {
-  for_each            = local.business_area == "cft" ? local.cft_jenkins : local.sds_jenkins
-  name                = each.value.name
-  resource_group_name = each.value.resource_group
-}
