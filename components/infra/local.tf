@@ -37,4 +37,13 @@ locals {
     "HMCTS-SOC-PROD",
     "Reform-CFT-VH-Dev"
   ]
+  cft_user_access_subs = [
+    "DTS-CFTPTL-INTSVC",
+    "DTS-CFTSBOX-INTSVC"
+
+  ]
+  sds_user_access_subs = [
+    "DTS-SHAREDSERVICESPTL-SBOX",
+    "DTS-SHAREDSERVICESPTL"
+  ]
 }
