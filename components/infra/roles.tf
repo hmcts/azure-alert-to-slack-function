@@ -9,6 +9,6 @@ resource "azurerm_role_assignment" "monitoring_reader" {
 resource "azurerm_role_assignment" "jenkins_monitoring_reader" {
   scope                = azurerm_monitor_action_group.action_group.id
   role_definition_name = "Monitoring Reader"
-  principal_id         = data.azurerm_user_assigned_identity.jenkins.principal_id
+  principal_id         = data.azurerm_user_assigned_identity.jenkins.*.principal_id[0]
   principal_type       = "ServicePrincipal"
 }
