@@ -26,7 +26,7 @@ data "azuread_service_principal" "bootstrap" {
 }
 
 data "azurerm_user_assigned_identity" "jenkins" {
-  for_each            = local.jenkins_identities[local.business_area][var.env]
+  for_each            = local.business_area == "cft" ? local.cft_jenkins : local.sds_jenkins
   name                = each.value.name
   resource_group_name = each.value.resource_group
 }

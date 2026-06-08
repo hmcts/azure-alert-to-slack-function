@@ -37,82 +37,80 @@ locals {
     "HMCTS-SOC-PROD",
     "Reform-CFT-VH-Dev"
   ]
-  jenkins_identities = {
-    cft = {
-      aat = {
-        name           = "jenkins-aat-mi"
-        resource_group = "managed-identities-aat-rg"
-      },
-      demo = {
-        name           = "jenkins-demo-mi"
-        resource_group = "managed-identities-demo-rg"
-      },
-      ithc = {
-        name           = "jenkins-ithc-mi"
-        resource_group = "managed-identities-ithc-rg"
-      },
-      perftest = {
-        name           = "jenkins-perftest-mi"
-        resource_group = "managed-identities-perftest-rg"
-      },
-      preview = {
-        name           = "jenkins-preview-mi"
-        resource_group = "managed-identities-preview-rg"
-      },
-      prod = {
-        name           = "jenkins-prod-mi"
-        resource_group = "managed-identities-prod-rg"
-      },
-      ptl = {
-        name           = "jenkins-cftptl-intsvc-mi"
-        resource_group = "managed-identities-cftptl-intsvc-rg"
-      },
-      ptlsbox = {
-        name           = "jenkins-cftptlsbox-intsvc-mi"
-        resource_group = "managed-identities-cftsbox-intsvc-rg"
-      },
-      sbox = {
-        name           = "jenkins-sbox-mi"
-        resource_group = "managed-identities-sandbox-rg"
-      }
+  cft_jenkins = {
+    aat = {
+      name           = "jenkins-aat-mi"
+      resource_group = "managed-identities-aat-rg"
     },
-    sds = {
-      demo = {
-        name           = "jenkins-demo-mi"
-        resource_group = "managed-identities-demo-rg"
-      },
-      dev = {
-        name           = "jenkins-dev-mi"
-        resource_group = "managed-identities-dev-rg"
-      },
-      ithc = {
-        name           = "jenkins-ithc-mi"
-        resource_group = "managed-identities-ithc-rg"
-      },
-      prod = {
-        name           = "jenkins-prod-mi"
-        resource_group = "managed-identities-prod-rg"
-      },
-      ptl = {
-        name           = "jenkins-ptl-mi"
-        resource_group = "managed-identities-ptl-rg"
-      },
-      ptlsbox = {
-        name           = "jenkins-ptlsbox-mi"
-        resource_group = "managed-identities-ptlsbox-rg"
-      },
-      sbox = {
-        name           = "jenkins-sbox-mi"
-        resource_group = "managed-identities-sandbox-rg"
-      },
-      stg = {
-        name           = "jenkins-stg-mi"
-        resource_group = "managed-identities-stg-rg"
-      },
-      test = {
-        name           = "jenkins-test-mi"
-        resource_group = "managed-identities-test-rg"
-      },
+    demo = {
+      name           = "jenkins-demo-mi"
+      resource_group = "managed-identities-demo-rg"
+    },
+    ithc = {
+      name           = "jenkins-ithc-mi"
+      resource_group = "managed-identities-ithc-rg"
+    },
+    perftest = {
+      name           = "jenkins-perftest-mi"
+      resource_group = "managed-identities-perftest-rg"
+    },
+    preview = {
+      name           = "jenkins-preview-mi"
+      resource_group = "managed-identities-preview-rg"
+    },
+    prod = {
+      name           = "jenkins-prod-mi"
+      resource_group = "managed-identities-prod-rg"
+    },
+    ptl = {
+      name           = "jenkins-cftptl-intsvc-mi"
+      resource_group = "managed-identities-cftptl-intsvc-rg"
+    },
+    ptlsbox = {
+      name           = "jenkins-cftptlsbox-intsvc-mi"
+      resource_group = "managed-identities-cftsbox-intsvc-rg"
+    },
+    sbox = {
+      name           = "jenkins-sbox-mi"
+      resource_group = "managed-identities-sandbox-rg"
     }
+  }
+  sds_jenkins = {
+    demo = {
+      name           = "jenkins-demo-mi"
+      resource_group = "managed-identities-demo-rg"
+    },
+    dev = {
+      name           = "jenkins-dev-mi"
+      resource_group = "managed-identities-dev-rg"
+    },
+    ithc = {
+      name           = "jenkins-ithc-mi"
+      resource_group = "managed-identities-ithc-rg"
+    },
+    prod = {
+      name           = "jenkins-prod-mi"
+      resource_group = "managed-identities-prod-rg"
+    },
+    ptl = {
+      name           = "jenkins-ptl-mi"
+      resource_group = "managed-identities-ptl-rg"
+    },
+    ptlsbox = {
+      name           = "jenkins-ptlsbox-mi"
+      resource_group = "managed-identities-ptlsbox-rg"
+    },
+    sbox = {
+      name           = "jenkins-sbox-mi"
+      resource_group = "managed-identities-sandbox-rg"
+    },
+    stg = {
+      name           = "jenkins-stg-mi"
+      resource_group = "managed-identities-stg-rg"
+    },
+    test = {
+      name           = "jenkins-test-mi"
+      resource_group = "managed-identities-test-rg"
+    },
   }
 }
