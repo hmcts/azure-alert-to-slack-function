@@ -26,6 +26,7 @@ data "azuread_service_principal" "bootstrap" {
 }
 
 data "azurerm_user_assigned_identity" "jenkins" {
-  name                = "jenkins-${var.env}-mi"
-  resource_group_name = "managed-identities-${var.env}-rg"
+  for_each            = local.jenkins_identities[local.business_area][var.env]
+  name                = each.value.name
+  resource_group_name = each.value.resource_group
 }
