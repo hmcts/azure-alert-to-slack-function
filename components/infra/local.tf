@@ -37,6 +37,13 @@ locals {
     "HMCTS-SOC-PROD",
     "Reform-CFT-VH-Dev"
   ]
+
+  sps_subscriptions = [
+    "DTS-SPS-SBOX",
+    "DTS-SPS-STG",
+    "DTS-SPS-PROD"
+  ]
+  sds_bootstrap_subscriptions = concat(local.sds_subscriptions, local.sps_subscriptions)
   cft_user_access_subs = [
     "DTS-CFTPTL-INTSVC",
     "DTS-CFTSBOX-INTSVC"

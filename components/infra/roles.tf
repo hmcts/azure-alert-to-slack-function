@@ -1,5 +1,5 @@
 resource "azurerm_role_assignment" "monitoring_reader" {
-  for_each             = local.business_area == "cft" ? toset(local.cft_subscriptions) : toset(local.sds_subscriptions)
+  for_each             = local.business_area == "cft" ? toset(local.cft_subscriptions) : toset(local.sds_bootstrap_subscriptions)
   scope                = azurerm_resource_group.this.id
   role_definition_name = "Monitoring Reader"
   principal_id         = data.azuread_service_principal.bootstrap[each.value].object_id
