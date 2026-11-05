@@ -27,12 +27,12 @@ parameters:
     - deployment: 'sds_ptl'
       environment: 'ptl'
       component: 'infra'
-      service_connection: 'DTS-SHAREDSERVICESPTL'
+      service_connection: 'DTS-SHAREDSERVICESPTL-WIF'
       dependsOn: 'Build'
     - deployment: 'cft_ptl'
       environment: 'ptl'
       component: 'infra'
-      service_connection: 'DTS-CFTPTL-INTSVC'
+      service_connection: 'DTS-CFTPTL-INTSVC-WIF'
       dependsOn: 'Build'
 
 variables:
@@ -60,7 +60,7 @@ stages:
             parameters:
               keyvaultName: 'infra-vault-nonprod'
               keyvaultSecret: 'azure-devops-sp-token'
-              serviceConnection: 'DCD-CFT-Sandbox'
+              serviceConnection: 'DCD-CFT-Sandbox-WIF'
               overrideAction: ${{ parameters.overrideAction }}
 
   - stage: Build
