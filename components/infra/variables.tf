@@ -17,3 +17,9 @@ variable "builtFrom" {
 
 }
 
+variable "action_group_reader_principal_ids" {
+  description = "Service principal object IDs granted Reader access to the SDS action group."
+  type        = set(string)
+  default     = []
+}
+
